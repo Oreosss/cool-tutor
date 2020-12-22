@@ -1,0 +1,359 @@
+<!--
+Author: Oreoluwa Olukotun
+Class: CS316 
+About: Bootstrap Project
+Resorces Used: - Stack Overflow
+               - W3Schools
+               - https://tobiasahlin.com/moving-letters/#1 (For animation)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Math Tutor</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner"> 
+              <h1  class="ml1 masthead-brand" >
+                <span class ="text-wrapper">
+                  <span class="line line1"></span>
+                  <span class="letters"> Math Tutor </span>
+                  <span class="line line2"></span>
+                </span>
+              </h1>
+            </div>
+        </div>
+      
+          <div class="inner cover">
+           <div id="shadow">
+              <form class="lead" id="myForm" autocomplete="off">
+                <!-- Operation Drop Down Menu -->
+           	    <div class="input-group mb-3">
+	                <div class="input-group-prepend">
+		                <button class="btn btn-outline-secondary dropdown-toggle"  type="button" data-toggle="dropdown" aria-haspopup="true"   aria-expanded="false"> Choose an operation</button>
+		  	              <div class="dropdown-menu" id="option">
+				                        <a class="dropdown-item" >Sum</a>
+				                        <a class="dropdown-item" >Sort</a>
+                                <a class="dropdown-item" >Minimum</a>
+                                <a class="dropdown-item" >Maximum</a>
+				                        <a class="dropdown-item" >Product</a>
+                                <a class="dropdown-item" >Average</a>
+                                <a class="dropdown-item" >Median</a>
+                                <a class="dropdown-item" >Reverse Sort</a>
+	                              <a class="dropdown-item" >Standard Deviation</a>
+			                </div>
+                  </div>
+                  <!--Textbox for operation-->
+		              <input type="text" id ="actionText"  class="form-control"  aria-label="Text-input with dropdown button"><br>
+                </div>
+            </div>
+              <div class="inner ">
+                <div id="shadow" >
+                  <input type="text" id ="integers"  class="form-control"  placeholder="Enter integers separated by space" >
+                </div>
+              </div>
+              <p class="lead">
+               <input type="submit"  class="btn btn-md btn-secondary"/>
+              </p>   
+         </form>
+     <div class="inner ">
+        <div id="shadow">
+          <div class="input-group-prepend">
+            <a class="btn btn-outline-secondary" aria-haspopup="true"   aria-expanded="false">ANSWER</a>
+            <input type="text" id ="answer" class="form-control" placeholder="Answer appears here" >
+          </div>
+        </div>   
+      </div>
+     </div>
+     <p class="lead">
+      <button id="refresh" class="btn btn-md btn-secondary" onclick= "Refresh()">Clear</button>
+     </p>
+          <div class="mastfoot">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-1 ">
+                  <img src=" https://cdn.thinglink.me/api/image/854433576010121216/1240/10/scaletowidth" alt="Math Logo">
+                </div>
+                <div class="col-sm-10 ">
+                <div class="inner">
+                  <p> For more math help go to <a data-toggle="tooltip" data-placement="top" title="For additional help" href="https://www.khanacademy.org/math">Khan Akademy</a>.</p>
+                </div>
+                </div>
+                <div class="col-sm-1 ">
+                  <img src="https://cdn.thinglink.me/api/image/854433576010121216/1240/10/scaletowidth" alt="Math Logo" >
+                </div>
+            </div>
+          </div>
+        </div>      
+    </div>
+    </div>
+
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
+	    <!-- Autopopulate -->
+	    <script>
+		    $('#option a').on('click', function()
+		    {
+			    $("#actionText").val($(this).html());
+		    });
+      </script>
+
+      <!--Animation-->
+      <script>
+        // Wrap every letter in a span
+        var textWrapper = document.querySelector('.ml1 .letters');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'> $& </span>");
+
+        //textWrapper.innerHTML = $(".letters").text().replace(/\S/g, "<span class='letter'> $& </span>");
+
+        var animation =anime.timeline();
+          animation.add({
+            targets: '.ml1 .letters',
+            scale: [0.3,1],
+            opacity: [0,1],
+            translateZ: 0,
+            easing: "easeOutExpo",
+            duration: 6000,
+            delay: (el, i) => 70 * (i+1)
+          }).add({
+            targets: '.ml1 .line',
+            scaleX: [0,1],
+            opacity: [0.5,1],
+            easing: "easeOutExpo",
+            duration: 6050,
+            offset: '-=875',
+            delay: (el, i, l) => 80 * (l - i)
+          });
+      </script>
+
+      <!--Form Submit-->
+      <script>
+       document.getElementById("myForm").onsubmit= function formAction()
+       {
+        
+         var action = $("#actionText").val();
+         var integers = $("#integers").val();
+         integers = integers.trim();
+         var nums = integers.toString().split(" ");
+         var arr = nums.map(Number);
+
+         for (var i in arr)
+         {
+           if (isNaN(arr[i]))
+           {
+             alert ("Must input numbers. Click Clear.");
+             return false;
+            }
+         }
+         var answer;
+         document.getElementById("answer").value="";
+
+      
+           
+         if (action == "Sum")
+         {
+           answer = arr.reduce(function(a,b){
+             return a + b;
+            },0);
+
+          document.getElementById("answer").value = answer;
+         }
+
+        else if (action == "Sort")
+        {
+          var sorted_arr = [];
+          sorted_arr = arr.sort();
+
+          for (var key in sorted_arr)
+          {
+            var currNum = sorted_arr[key];
+
+            answer = currNum + " ";
+
+            document.getElementById("answer").value += answer;
+
+          }
+          
+        }
+
+        else if (action == "Minimum")
+        {
+          answer = Math.min(...arr);
+          document.getElementById("answer").value = answer;
+
+        }
+
+        else if (action == "Maximum")
+        {
+          answer = Math.max(...arr);
+          document.getElementById("answer").value = answer;
+
+        }
+
+        else if (action == "Product")
+        {
+          answer = arr.reduce(function(a,b)
+          {
+            return a * b;
+          }, 1);
+
+          document.getElementById("answer").value = answer;
+
+        }
+
+        else if (action == "Average")
+        {
+          var len = arr.length;
+          var sum = arr.reduce(function(a,b)
+          {
+            return a + b;
+          }, 0);
+
+          answer= sum/len;
+          answer= answer.toFixed(2);
+
+          document.getElementById("answer").value = answer;
+
+        }
+
+        else if (action == "Median")
+        {
+          var len = arr.length;
+          var mid; 
+          
+
+          if ((len % 2) != 0 )
+          {
+            mid = Math.trunc(len/2);
+            answer = arr[mid];
+          }
+          else
+          {
+            mid = len/2;
+            midN = mid + 1;
+            var med = arr[mid-1] + arr[mid];
+            answer = (med/2).toFixed(2);
+      
+
+          }
+
+          document.getElementById("answer").value = answer;
+
+        }
+
+        else if (action == "Reverse Sort")
+        {
+          var sorted_arr = [];
+          sorted_arr = arr.sort(function(a,b) {return b-a});
+
+          for (var key in sorted_arr)
+          {
+            var currNum = sorted_arr[key];
+
+            answer = currNum + " ";
+
+            document.getElementById("answer").value += answer;
+
+          }
+        }
+          
+        else if (action == "Standard Deviation")
+        {
+        
+            var len = arr.length;
+            var sum = arr.reduce(function(a,b)
+            {
+               return a + b;
+            }, 0);
+            
+            var avg = sum/len;
+            
+
+            var sd_arr = [];
+            for(var i in arr)
+            {
+              curr = (arr[i] - avg)**2;
+              sd_arr.push(curr);
+            }
+
+            var sd_len = sd_arr.length;
+            var sd_sum = sd_arr.reduce(function(a,b)
+            {
+               return a + b;
+            }, 0);
+
+            var sd_avg = sd_sum/sd_len;
+
+            answer = (Math.sqrt(sd_avg)).toFixed(2);
+             
+            document.getElementById("answer").value = answer;
+
+        }
+
+        else{
+          alert("Choose a valid operation. Click Clear")
+        }
+        
+        return false;
+
+       }
+      </script>
+
+      <!--Keeping page values after reload-->
+      <script>
+        window.onbeforeunload=function()
+        {
+          sessionStorage.setItem("option", $("#actionText").val());
+          sessionStorage.setItem("integers",$("#integers").val());
+        }
+
+        window.onload= function()
+        {
+          var option = sessionStorage.getItem("option");
+          if (option !== null) $("#actionText").val(option);
+
+          var ints = sessionStorage.getItem("integers");
+          if(ints !== null) $("#integers").val(ints);
+
+        
+        }
+      </script>
+      <!--Clear out textboxes-->
+      <script>
+        function Refresh()
+        {
+           sessionStorage.clear();
+           $("#myForm")[0].reset();
+           document.getElementById("answer").value="";
+           window.reload();
+           
+        }
+      </script>
+  </body>
+</html>
+
